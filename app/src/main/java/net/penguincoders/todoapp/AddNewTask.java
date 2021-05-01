@@ -1,4 +1,4 @@
-package net.penguincoders.doit;
+package net.penguincoders.todoapp;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -19,9 +19,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import net.penguincoders.doit.Adapters.ToDoAdapter;
-import net.penguincoders.doit.Model.ToDoModel;
-import net.penguincoders.doit.Utils.DatabaseHandler;
+import net.penguincoders.todoapp.Model.ToDoModel;
+import net.penguincoders.todoapp.Utils.DatabaseHandler;
 
 import java.util.Objects;
 

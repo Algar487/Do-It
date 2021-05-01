@@ -1,33 +1,25 @@
-package net.penguincoders.doit;
+package net.penguincoders.todoapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import net.penguincoders.doit.Adapters.ToDoAdapter;
-import net.penguincoders.doit.Model.ToDoModel;
-import net.penguincoders.doit.Utils.DatabaseHandler;
+import net.penguincoders.todoapp.Adapters.ToDoAdapter;
+import net.penguincoders.todoapp.Model.ToDoModel;
+import net.penguincoders.todoapp.Utils.DatabaseHandler;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements DialogCloseListener{
+public class TaskActivity extends AppCompatActivity implements DialogCloseListener{
 
     private DatabaseHandler db;
 
@@ -40,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_task);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         db = new DatabaseHandler(this);
@@ -48,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
         tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        tasksAdapter = new ToDoAdapter(db,MainActivity.this);
+        tasksAdapter = new ToDoAdapter(db, TaskActivity.this);
         tasksRecyclerView.setAdapter(tasksAdapter);
 
         ItemTouchHelper itemTouchHelper = new
