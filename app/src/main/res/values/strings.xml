@@ -4,4 +4,5 @@
     <string name="save">Guardar</string>
     <string name="new_task">Nueva tarea</string>
     <string name="tasks">Tareas</string>
+    <string name="return_to_main">Volver</string>
 </resources>
