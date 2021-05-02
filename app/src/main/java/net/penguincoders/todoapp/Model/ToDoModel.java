@@ -1,6 +1,6 @@
 package net.penguincoders.todoapp.Model;
 
-//
+//Clase que modela una tarea
 public class ToDoModel {
     private int id, status;
     private String task;
