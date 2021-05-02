@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+//Clase que muestra un Splash al comienzo de la aplicación
 public class SplashActivity extends AppCompatActivity {
 
     @Override

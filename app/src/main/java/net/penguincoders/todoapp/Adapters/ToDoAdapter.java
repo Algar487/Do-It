@@ -2,11 +2,13 @@ package net.penguincoders.todoapp.Adapters;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,12 +21,15 @@ import net.penguincoders.todoapp.Utils.DatabaseHandler;
 
 import java.util.List;
 
+//Adaptador del RecyclerView
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
+    //Lista donde iremos guardando las tareas
     private List<ToDoModel> todoList;
     private DatabaseHandler db;
     private TaskActivity activity;
 
+    //Constructor del adaptador
     public ToDoAdapter(DatabaseHandler db, TaskActivity activity) {
         this.db = db;
         this.activity = activity;
@@ -50,6 +55,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     db.updateStatus(item.getId(), 1);
+                    Toast toast =Toast.makeText(getContext(), "¡Tarea completada!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 } else {
                     db.updateStatus(item.getId(), 0);
                 }
@@ -70,11 +78,13 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         return activity;
     }
 
+    //establecer nueva tarea
     public void setTasks(List<ToDoModel> todoList) {
         this.todoList = todoList;
         notifyDataSetChanged();
     }
 
+    //eliminar tarea marcada
     public void deleteItem(int position) {
         ToDoModel item = todoList.get(position);
         db.deleteTask(item.getId());
@@ -82,6 +92,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         notifyItemRemoved(position);
     }
 
+    //editar tarea marcada
     public void editItem(int position) {
         ToDoModel item = todoList.get(position);
         Bundle bundle = new Bundle();

@@ -6,12 +6,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -103,12 +105,18 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 String text = newTaskText.getText().toString();
                 if(finalIsUpdate){
                     db.updateTask(bundle.getInt("id"), text);
+                    Toast toast =Toast.makeText(getContext(), "¡Tarea actualizada correctamente!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
                 else {
                     ToDoModel task = new ToDoModel();
                     task.setTask(text);
                     task.setStatus(0);
                     db.insertTask(task);
+                    Toast toast =Toast.makeText(getContext(), "¡Tarea creada correctamente!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
                 dismiss();
             }

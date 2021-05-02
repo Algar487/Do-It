@@ -20,14 +20,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+
+//Clase más importante de la aplicación. Se encarga de la gestión completa de tareas.
 public class TaskActivity extends AppCompatActivity implements DialogCloseListener{
 
+    //Declaramos los elementos a utilizar
     private DatabaseHandler db;
-
     private RecyclerView tasksRecyclerView;
     private ToDoAdapter tasksAdapter;
     private FloatingActionButton fab;
-
     private List<ToDoModel> taskList;
 
     @Override
@@ -36,6 +37,7 @@ public class TaskActivity extends AppCompatActivity implements DialogCloseListen
         setContentView(R.layout.activity_task);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        //Conectamos con la base de datos SQLite
         db = new DatabaseHandler(this);
         db.openDatabase();
 
@@ -49,12 +51,11 @@ public class TaskActivity extends AppCompatActivity implements DialogCloseListen
         itemTouchHelper.attachToRecyclerView(tasksRecyclerView);
 
         fab = findViewById(R.id.fab);
-
         taskList = db.getAllTasks();
         Collections.reverse(taskList);
-
         tasksAdapter.setTasks(taskList);
 
+        //escuchador del botón de creación de nuevas tareas
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +64,7 @@ public class TaskActivity extends AppCompatActivity implements DialogCloseListen
         });
     }
 
+    //Método para gestionar el cierre del diálogo modal y notificar de los cambos producidos en la lista de tareas
     @Override
     public void handleDialogClose(DialogInterface dialog){
         taskList = db.getAllTasks();
@@ -70,6 +72,8 @@ public class TaskActivity extends AppCompatActivity implements DialogCloseListen
         tasksAdapter.setTasks(taskList);
         tasksAdapter.notifyDataSetChanged();
     }
+
+    //Método para volver a la actividad anterior
     public void openMainActivity(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);

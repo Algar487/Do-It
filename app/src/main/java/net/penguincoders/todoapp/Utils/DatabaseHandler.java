@@ -11,6 +11,7 @@ import net.penguincoders.todoapp.Model.ToDoModel;
 import java.util.ArrayList;
 import java.util.List;
 
+//Clase que gestiona la base de datos SQLite de la aplicación
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
@@ -35,9 +36,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if existed
+        // Eliminar tabla antigua si existía anteriormente
         db.execSQL("DROP TABLE IF EXISTS " + TODO_TABLE);
-        // Create tables again
+        // Crear la tabla de nuevo
         onCreate(db);
     }
 
@@ -45,6 +46,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
     }
 
+    //Método para insertar tarea de la base de datos
     public void insertTask(ToDoModel task){
         ContentValues cv = new ContentValues();
         cv.put(TASK, task.getTask());
@@ -52,6 +54,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TODO_TABLE, null, cv);
     }
 
+    //Método para obtener listado de tareas de la base de datos
     public List<ToDoModel> getAllTasks(){
         List<ToDoModel> taskList = new ArrayList<>();
         Cursor cur = null;
@@ -79,18 +82,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return taskList;
     }
 
+    //Método para actualizar el estado de la tarea (completada/no completada)
     public void updateStatus(int id, int status){
         ContentValues cv = new ContentValues();
         cv.put(STATUS, status);
         db.update(TODO_TABLE, cv, ID + "= ?", new String[] {String.valueOf(id)});
     }
 
+    //Método para editar tarea de la base de datos
     public void updateTask(int id, String task) {
         ContentValues cv = new ContentValues();
         cv.put(TASK, task);
         db.update(TODO_TABLE, cv, ID + "= ?", new String[] {String.valueOf(id)});
     }
 
+    //Método para eliminar tarea de la base de datos
     public void deleteTask(int id){
         db.delete(TODO_TABLE, ID + "= ?", new String[] {String.valueOf(id)});
     }

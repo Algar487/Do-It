@@ -13,10 +13,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
     }
 
+    //Método que abre la pantalla de gestión de tareas
     public void openTaskActivity(View view) {
         Intent i = new Intent(this, TaskActivity.class);
         startActivity(i);
